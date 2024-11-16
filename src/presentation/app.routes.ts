@@ -1,14 +1,19 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import { UsersRoutes } from "./modules/users/routes";
+import { AuthRoutes } from "./modules/auth/routes";
+import { NotesRoutes } from "./modules/notes/routes";
+import { RemindersRoutes } from "./modules/reminders/routes";
+import { TodosRoutes } from "./modules/todos/routes";
 
 export class AppRoutes {
   static get routes() {
-    return Router()
-      .use("/", (req: Request, res: Response) => {
-        res.json("hello world");
-        
-      })
-      .use("/test", (req: Request, res: Response) => {
-        console.log("hello world");
-      });
+    const router = Router();
+    router.use("/auth", AuthRoutes.routes);
+    router.use("/users", UsersRoutes.routes);
+    router.use("/notes", NotesRoutes.routes);
+    router.use("/reminders", RemindersRoutes.routes);
+    router.use("/todos", TodosRoutes.routes);
+
+    return router;
   }
 }

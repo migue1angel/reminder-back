@@ -1,24 +1,27 @@
 import express, { Router } from "express";
-import { envs } from "../config/envs";
-interface ServerOptions {
+
+interface Options {
   port: number;
   routes: Router;
 }
 export class Server {
+  public readonly app = express();
   private readonly port: number;
   private readonly routes: Router;
-  private readonly app = express();
-
-  constructor(options: ServerOptions) {
+  constructor(options: Options) {
     const { port, routes } = options;
     this.port = port;
     this.routes = routes;
   }
-  
+
   async start() {
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
+
     this.app.use(this.routes);
-    this.app.listen(envs.PORT, () => {
-      console.log("hello world");
+
+    this.app.listen(this.port, () => {
+      console.log(`Server is running on port ${this.port}`);
     });
   }
 }
