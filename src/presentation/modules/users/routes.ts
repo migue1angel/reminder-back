@@ -8,6 +8,7 @@ export class UsersRoutes {
     const router = Router();
     router.get("/", controller.getAll );
     router.get("/:id", controller.getOne );
+    router.post("/", controller.create );
     return router;
   }
 }

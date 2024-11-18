@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { UserModel } from "../../../database/mongo/models/user.model";
 
 export class UsersController {
   constructor() {}
@@ -9,5 +10,10 @@ export class UsersController {
 
   getOne(req: Request, res: Response) {
     res.json({ message: "Should return a user" });
+  }
+  create(req: Request, res: Response) {
+    const user = new UserModel(req.body);
+    user.save();
+    res.json(user);
   }
 }

@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { RemindersController } from "./controller";
+import { PagesController } from "./controller";
 
-export class RemindersRoutes {
+export class PagesRoutes {
 
   static get routes() {
-    const controller = new RemindersController();
+    const controller = new PagesController();
     const router = Router();
     router.get("/", controller.getAll );
     router.get("/:id", controller.getOne );
